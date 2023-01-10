@@ -134,6 +134,8 @@ export interface Props {
     Disable scrollIntoView polyfill
    */
   noPolyfill?: boolean;
+  arrowLeftClassName?: string;
+  arrowRightClassName?: string;
 }
 
 /**
@@ -165,6 +167,8 @@ function ScrollMenu({
   apiRef = { current: {} as publicApiType },
   RTL,
   noPolyfill,
+  arrowLeftClassName = '',
+  arrowRightClassName = '',
 }: Props): JSX.Element {
   const LeftArrow = getElementOrConstructor(_LeftArrow);
   const RightArrow = getElementOrConstructor(_RightArrow);
@@ -268,6 +272,21 @@ function ScrollMenu({
     [RTL, scrollContainerClassName]
   );
 
+  const arrowLeftClass = React.useMemo(
+    () =>
+      `${arrowLeftClassName} ${constants.arrowLeftClassName}${
+        context?.isFirstItemVisible ? ' arrow-visible' : ''
+      }`,
+    [context?.isFirstItemVisible, arrowLeftClassName]
+  );
+  const arrowRightClass = React.useMemo(
+    () =>
+      `${arrowRightClassName} ${constants.arrowRightClassName}${
+        context?.isLastItemVisible ? ' arrow-visible' : ''
+      }`,
+    [context?.isLastItemVisible, arrowRightClassName]
+  );
+
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
@@ -280,7 +299,7 @@ function ScrollMenu({
       <VisibilityContext.Provider value={context}>
         <div className={constants.headerClassName}>{Header}</div>
         <div className={constants.innerWrapperClassName}>
-          <div className={constants.arrowLeftClassName}>{LeftArrow}</div>
+          <div className={arrowLeftClass}>{LeftArrow}</div>
           <ScrollContainer
             className={containerClassName}
             onScroll={scrollHandler}
@@ -294,7 +313,7 @@ function ScrollMenu({
               {children}
             </MenuItems>
           </ScrollContainer>
-          <div className={constants.arrowRightClassName}>{RightArrow}</div>
+          <div className={arrowRightClass}>{RightArrow}</div>
         </div>
         <div className={constants.footerClassName}>{Footer}</div>
       </VisibilityContext.Provider>

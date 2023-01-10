@@ -1,7 +1,7 @@
 {
-  "name": "react-horizontal-scrolling-menu",
+  "name": "react-horizontal-scrolling-menu-alt",
   "version": "3.2.3",
-  "author": "asmyshlyaev177",
+  "author": "hermanto lim",
   "description": "Scrolling horizontal menu component for React, support mouse and touch devices.",
   "license": "ISC",
   "main": "dist/index.umd.js",
